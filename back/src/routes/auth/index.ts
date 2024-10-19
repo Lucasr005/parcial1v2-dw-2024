@@ -40,7 +40,13 @@ const authRoutes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         reply.unauthorized("El username o contraseña no es correcto.");
       const usuario: UsuarioType = res.rows[0];
 
-      const token = fastify.jwt.sign(usuario);
+      const token  = fastify.jwt.sign({
+        id_usuario: usuario.id_usuario,
+        username: usuario.username,
+        email: usuario.email,
+        is_admin: usuario.is_admin, 
+      });
+
       reply.send({ token, usuario });
     },
   });

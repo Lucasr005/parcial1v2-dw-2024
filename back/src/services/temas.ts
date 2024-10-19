@@ -21,7 +21,7 @@ export const findCreadasByUserId = async (id_usuario: number) => {
     `,
     [id_usuario]
   );
-  if (res.rowCount === 0) throw new NotFoundError(""); //FIXME: No diferencia si el usuario no existe o no tiene temas creadas.
+  if (res.rowCount === 0) throw new NotFoundError("No se encontraron temas"); //FIXME: No diferencia si el usuario no existe o no tiene temas creadas.
   return res.rows;
 };
 
@@ -46,7 +46,7 @@ export const findById = async (id_tema: number): Promise<Tema> => {
     `,
     [id_tema]
   );
-  if (res.rowCount === 0) throw new NotFoundError("");
+  if (res.rowCount === 0) throw new NotFoundError("No se encontaron temas");
   return res.rows[0];
 };
 

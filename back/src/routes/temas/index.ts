@@ -28,9 +28,14 @@ const temasRoutes: FastifyPluginAsync = async (
     },
     onRequest: [fastify.verifyJWT],
     handler: async function (request, reply) {
-      return temaService.findAll();
+      const { is_admin, id_usuario } = request.user as { is_admin: boolean; id_usuario: number };
+
+      if (is_admin) {
+        return temaService.findAll();
+      } else {
+        return temaService.findById(id_usuario); 
+      }
     },
   });
 };
-
 export default temasRoutes;
